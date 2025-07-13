@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>聚合图床API测试</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .status {
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            font-weight: 500;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .status.loading {
+            background: linear-gradient(45deg, #e3f2fd, #bbdefb);
+            color: #1976d2;
+            border: 2px solid #2196F3;
+        }
+        .status.success {
+            background: linear-gradient(45deg, #e8f5e8, #c8e6c9);
+            color: #2e7d32;
+            border: 2px solid #4CAF50;
+        }
+        .status.error {
+            background: linear-gradient(45deg, #ffebee, #ffcdd2);
+            color: #c62828;
+            border: 2px solid #f44336;
+        }
+        .form-group {
+            margin-bottom: 24px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 1.1em;
+        }
+        select, input[type="file"], input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        .upload-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .upload-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        .upload-btn:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .result {
+            margin-top: 24px;
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        .result.success {
+            background: linear-gradient(45deg, #e8f5e8, #f1f8e9);
+            border-color: #4CAF50;
+        }
+        .result.error {
+            background: linear-gradient(45deg, #ffebee, #fce4ec);
+            border-color: #f44336;
+        }
+        .image-preview {
+            max-width: 100%;
+            max-height: 400px;
+            margin-top: 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .image-preview:hover {
+            transform: scale(1.02);
+        }
+        .url-result {
+            margin-top: 16px;
+            padding: 16px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            word-break: break-all;
+            border-left: 4px solid #667eea;
+            position: relative;
+        }
+        .copy-btn {
+            background: linear-gradient(45deg, #2196F3, #21CBF3);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 12px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        .copy-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+        .system-info {
+            background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .provider-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .provider-item {
+            padding: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .provider-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .provider-item.enabled {
+            border-color: #4CAF50;
+            background: linear-gradient(45deg, #f8fff8, #e8f5e8);
+        }
+        .provider-item.disabled {
+            border-color: #f44336;
+            background: linear-gradient(45deg, #fff8f8, #ffebee);
+            opacity: 0.7;
+        }
+        .api-info {
+            background: linear-gradient(45deg, #fff3e0, #ffe0b2);
+            border: 2px solid #ff9800;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .api-info h3 {
+            margin: 0 0 12px 0;
+            color: #e65100;
+        }
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #1976d2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ 聚合图床API测试</h1>
+        
+        <div class="api-info">
+            <h3>📡 API端点配置</h3>
+            <p>API地址: <strong><span id="apiUrl">http://localhost:8080</span></strong></p>
+            <p>请确保聚合图床API服务正在运行</p>
+        </div>
+        
+        <div id="status" class="status loading">
+            <span class="loading-spinner"></span>正在获取系统信息...
+        </div>
+        
+        <div id="systemInfo" class="system-info fade-in" style="display: none;">
+            <h3>📊 系统信息</h3>
+            <p><strong>状态:</strong> <span id="systemStatus"></span></p>
+            <p><strong>运行时间:</strong> <span id="systemUptime"></span></p>
+            <p><strong>版本:</strong> <span id="systemVersion"></span></p>
+            
+            <h4>🏪 支持的图床提供商</h4>
+            <div id="providerList" class="provider-list"></div>
+        </div>
+
+        <form id="uploadForm" class="fade-in" style="display: none;">
+            <div class="form-group">
+                <label for="provider">🎯 选择图床提供商:</label>
+                <select id="provider" name="provider" required>
+                    <option value="">请选择图床...</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="apiKey">🔑 API密钥 (如果需要):</label>
+                <input type="text" id="apiKey" name="key" placeholder="如果系统设置了API密钥验证，请在此输入">
+            </div>
+            
+            <div class="form-group">
+                <label for="imageFile">📁 选择图片文件:</label>
+                <input type="file" id="imageFile" name="image" accept="image/*" required>
+            </div>
+            
+            <button type="submit" class="upload-btn">🚀 上传图片</button>
+        </form>
+        
+        <div id="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        let systemInfo = null;
+        // 更改此变量以设置API的基本URL
+        const API_BASE_URL = 'http://localhost:8080';
+        
+        // 更新API地址显示
+        document.getElementById('apiUrl').textContent = API_BASE_URL;
+
+        // 页面加载时获取系统信息
+        window.addEventListener('load', function() {
+            fetchSystemInfo();
+        });
+
+        async function fetchSystemInfo() {
+            try {
+                const response = await fetch(API_BASE_URL + '/getinfo');
+                if (!response.ok) {
+                    throw new Error('HTTP ' + response.status + ' - ' + response.statusText);
+                }
+                
+                systemInfo = await response.json();
+                displaySystemInfo();
+                setupForm();
+                
+                document.getElementById('status').innerHTML = '✅ 系统加载成功';
+                document.getElementById('status').className = 'status success';
+                
+            } catch (error) {
+                document.getElementById('status').innerHTML = '❌ 获取系统信息失败: ' + error.message + '<br><small>请确保API服务正在 ' + API_BASE_URL + ' 运行</small>';
+                document.getElementById('status').className = 'status error';
+            }
+        }
+
+        function displaySystemInfo() {
+            document.getElementById('systemStatus').textContent = systemInfo.status;
+            document.getElementById('systemUptime').textContent = systemInfo.uptime;
+            document.getElementById('systemVersion').textContent = systemInfo.version;
+            
+            const providerList = document.getElementById('providerList');
+            providerList.innerHTML = '';
+            
+            systemInfo.providers.forEach(provider => {
+                const div = document.createElement('div');
+                div.className = 'provider-item ' + (provider.enabled ? 'enabled' : 'disabled');
+                div.innerHTML = '<strong>' + provider.display_name + '</strong><br>' +
+                    '<small>ID: ' + provider.name + '</small><br>' +
+                    '<small>状态: ' + (provider.enabled ? '✅ 启用' : '❌ 禁用') + '</small>';
+                providerList.appendChild(div);
+            });
+            
+            document.getElementById('systemInfo').style.display = 'block';
+        }
+
+        function setupForm() {
+            const providerSelect = document.getElementById('provider');
+            
+            // 只添加启用的提供商
+            const enabledProviders = systemInfo.providers.filter(p => p.enabled);
+            
+            if (enabledProviders.length === 0) {
+                document.getElementById('status').innerHTML = '⚠️ 没有可用的图床提供商<br><small>请检查配置文件中的图床设置</small>';
+                document.getElementById('status').className = 'status error';
+                return;
+            }
+            
+            enabledProviders.forEach(provider => {
+                const option = document.createElement('option');
+                option.value = provider.name;
+                option.textContent = provider.display_name;
+                providerSelect.appendChild(option);
+            });
+            
+            document.getElementById('uploadForm').style.display = 'block';
+        }
+
+        document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            const provider = document.getElementById('provider').value;
+            const apiKey = document.getElementById('apiKey').value;
+            const imageFile = document.getElementById('imageFile').files[0];
+            
+            if (!provider) {
+                alert('请选择图床提供商');
+                return;
+            }
+            
+            if (!imageFile) {
+                alert('请选择图片文件');
+                return;
+            }
+            
+            // 检查文件大小（前端检查，10MB限制）
+            if (imageFile.size > 10 * 1024 * 1024) {
+                alert('文件大小超过10MB限制');
+                return;
+            }
+            
+            formData.append('image', imageFile);
+            if (apiKey) {
+                formData.append('key', apiKey);
+            }
+            
+            const uploadBtn = document.querySelector('.upload-btn');
+            const originalText = uploadBtn.textContent;
+            uploadBtn.disabled = true;
+            uploadBtn.innerHTML = '<span class="loading-spinner"></span>上传中...';
+            
+            try {
+                const response = await fetch(API_BASE_URL + '/upload/' + provider, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                displayResult(result, response.ok);
+                
+            } catch (error) {
+                displayResult({
+                    success: false,
+                    error: '网络错误: ' + error.message
+                }, false);
+            } finally {
+                uploadBtn.disabled = false;
+                uploadBtn.innerHTML = originalText;
+            }
+        });
+
+        function displayResult(result, isSuccess) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result fade-in';
+            
+            if (result.success && result.url) {
+                resultDiv.classList.add('success');
+                resultDiv.innerHTML = '<h3>✅ 上传成功！</h3>' +
+                    '<p><strong>消息:</strong> ' + (result.message || '上传完成') + '</p>' +
+                    '<div class="url-result">' +
+                    '<strong>图片链接:</strong><br>' + result.url +
+                    '<button class="copy-btn" onclick="copyToClipboard(\'' + result.url + '\')">📋 复制链接</button>' +
+                    '</div>' +
+                    '<img src="' + result.url + '" alt="上传的图片" class="image-preview" onerror="this.style.display=\'none\'" onload="this.style.display=\'block\'">';
+            } else {
+                resultDiv.classList.add('error');
+                resultDiv.innerHTML = '<h3>❌ 上传失败</h3>' +
+                    '<p><strong>错误:</strong> ' + (result.error || '未知错误') + '</p>';
+            }
+            
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showToast('✅ 链接已复制到剪贴板');
+                }, function() {
+                    fallbackCopyToClipboard(text);
+                });
+            } else {
+                fallbackCopyToClipboard(text);
+            }
+        }
+        
+        function fallbackCopyToClipboard(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast('✅ 链接已复制到剪贴板');
+            } catch (err) {
+                showToast('❌ 复制失败，请手动复制');
+            }
+            
+            document.body.removeChild(textArea);
+        }
+        
+        function showToast(message) {
+            // 简单的toast通知
+            const toast = document.createElement('div');
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #333;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 8px;
+                z-index: 1000;
+                transition: all 0.3s ease;
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 2000);
+        }
+
+        // 文件选择时显示预览
+        document.getElementById('imageFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const resultDiv = document.getElementById('result');
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        resultDiv.style.display = 'block';
+                        resultDiv.className = 'result';
+                        resultDiv.innerHTML = '<h3>📁 文件预览</h3>' +
+                            '<p><strong>文件名:</strong> ' + file.name + '</p>' +
+                            '<p><strong>文件大小:</strong> ' + (file.size / 1024 / 1024).toFixed(2) + ' MB</p>' +
+                            '<img src="' + e.target.result + '" alt="预览图片" class="image-preview">';
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+# 编译文件
+*.exe
+*.so
+*.dylib
+imgapi
+build/
+dist/
+
+# 测试文件
+*.test
+
+# 输出文件
+go.sum
+*.out
+
+# 依赖文件
+vendor/
+
+# Go 工作空间文件
+go.work
+
+# IDE 文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志文件
+*.log
+
+# 临时文件
+tmp/
+temp/
+
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 配置文件（生产环境）
+config.yaml
+config.prod.yaml
+config.production.yaml
+
+# 敏感信息文件
+*.key
+*.pem
+*.crt
+secrets.yaml

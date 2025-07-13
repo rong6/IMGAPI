@@ -1,0 +1,41 @@
+# 服务器配置
+server:
+  port: 8080
+  debug: false
+
+# API访问控制
+api:
+  # 如果设置了key，则请求接口需要携带此key，留空则无需验证
+  key: ""
+
+# 图床配置
+providers:
+  # 16图床配置
+  111666:
+    enabled: true # false表示禁用
+    token: "Your-Auth-Token"
+  
+  # 美团图床配置
+  meituan:
+    enabled: true
+    token: "Your-Token"
+
+  # 360图床配置
+  360tu:
+    enabled: true
+  
+  # Cloudinary配置
+  cloudinary:
+    enabled: true
+    cloud_name: "Your-Cloud-Name"
+    api_key: "Your-API-Key"
+    api_secret: "Your-API-Secret"
+  
+  # IPFS图床配置
+  ipfs:
+    enabled: true
+  
+  # NodeSeek图床配置
+  nodeimage:
+    enabled: true
+    token: "Your-X-API-Key"
