@@ -39,3 +39,8 @@ providers:
   nodeimage:
     enabled: true
     token: "Your-X-API-Key"
+
+  # EroLabs图床配置
+  erolabs:
+    enabled: true
+    token: "Your-Cookie"

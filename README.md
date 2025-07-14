@@ -21,6 +21,7 @@
 - **Cloudinary (cloudinary)** - 需要配置
 - **IPFS图床 (ipfs)** - 无需配置
 - **NodeSeek图床 (nodeimage)** - 需要配置
+- **EroLabs图床 (erolabs)** - 需要配置
 
 ## 快速开始
 

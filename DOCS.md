@@ -23,3 +23,9 @@
 若启用需配置`token` 。你需要拥有[NodeSeek](https://www.nodeseek.com)账号，然后前往[NodeImage](https://www.nodeimage.com)登录账号，在API页面复制key即可。
 
 ![](https://i0.wp.com/res.cloudinary.com/dyxhgk4ga/image/upload/v1752412870/akay7qukatenrhh4dljr.png)
+
+## EroLabs
+
+访问[EroLabs官网](https://game.ero-labs.cool)，注册/登录账号，随机抓取请求获取Cookie：
+
+![](https://i0.wp.com/res.cloudinary.com/dyxhgk4ga/image/upload/v1752415543/pnqy0dpj2ojlih1vm2mn.png)

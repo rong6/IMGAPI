@@ -15,6 +15,7 @@ func init() {
 	RegisterProvider(&ProviderCloudinary{})
 	RegisterProvider(&ProviderIPFS{})
 	RegisterProvider(&ProviderNodeSeek{})
+	RegisterProvider(&ProviderEroLabs{})
 	// RegisterProvider(&ProviderExample{})
 }
 
