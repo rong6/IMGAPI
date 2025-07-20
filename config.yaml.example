@@ -44,3 +44,12 @@ providers:
   erolabs:
     enabled: true
     token: "Your-Cookie"
+
+  # DeepSider图床配置
+  deepsider:
+    enabled: true
+    token: "Your-Authorization"
+  
+  # 骤雨重山图床配置
+  zycsimg:
+    enabled: true

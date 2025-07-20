@@ -16,6 +16,8 @@ func init() {
 	RegisterProvider(&ProviderIPFS{})
 	RegisterProvider(&ProviderNodeSeek{})
 	RegisterProvider(&ProviderEroLabs{})
+	RegisterProvider(&ProviderDeepSider{})
+	RegisterProvider(&ProviderZycsimg{})
 	// RegisterProvider(&ProviderExample{})
 }
 

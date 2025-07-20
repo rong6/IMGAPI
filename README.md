@@ -22,6 +22,8 @@
 - **IPFS图床 (ipfs)** - 无需配置
 - **NodeSeek图床 (nodeimage)** - 需要配置
 - **EroLabs图床 (erolabs)** - 需要配置
+- **DeepSider图床 (deepsider)** - 需要配置
+- **骤雨重山图床 (zycsimg)** - 无需配置
 
 ## 快速开始
 
@@ -250,12 +252,14 @@ imgapi/
        111666.go          # 16图床
        360tu.go           # 360图床
        cloudinary.go      # Cloudinary
+       deepsider.go       # DeepSider
        example.go         # 示例实现
        interface.go       # 提供商接口
        ipfs.go            # IPFS图床
        meituan.go         # 美团图床
        nodeseek.go        # NodeSeek图床
        registry.go        # 提供商注册表
+       zycsimg.go         # 骤雨重山图床
 ```
 
 ## 安全特性
