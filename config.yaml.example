@@ -67,3 +67,8 @@ providers:
   qwen:
     enabled: true
     token: "Your-Bx-Umidtoken"
+
+  # NoCode图床配置
+  nocode:
+    enabled: true
+    token: "Your-Cookie"

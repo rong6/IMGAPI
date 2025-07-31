@@ -27,6 +27,7 @@
 - **编程猫图床 (codemao)** - 无需配置
 - **极客侧边栏图床 (geeksidebar)** - 需要配置
 - **Qwen图床 (qwen)** - 需要配置
+- **NoCode图床 (nocode)** - 需要配置
 
 ## 快速开始
 
@@ -262,6 +263,7 @@ imgapi/
        interface.go       # 提供商接口
        ipfs.go            # IPFS图床
        meituan.go         # 美团图床
+       nocode.go          # NoCode图床
        nodeseek.go        # NodeSeek图床
        qwen.go            # QWen图床
        registry.go        # 提供商注册表

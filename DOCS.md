@@ -47,3 +47,9 @@
 若启用需配置`token`。访问[Qwen Chat](https://chat.qwen.ai/)，打开开发者工具，上传一张图片，按下图所示在网络请求中抓取`bx-umidtoken`请求头值。
 
 ![](https://i0.wp.com/res.cloudinary.com/dyxhgk4ga/image/upload/v1753942573/gdfpjrcfhe3um6piei0h.png)
+
+## NoCode图床
+
+若启用需配置`token`。访问[NoCode官网](https://nocode.cn/)，注册/登录账号，打开开发者工具，上传图片，如下图所示在网络请求中抓取完整的Cookie值即可。
+
+![](https://i0.wp.com/res.cloudinary.com/dyxhgk4ga/image/upload/v1753953064/dp5u2ecdsnayzshvtvss.png)

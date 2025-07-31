@@ -21,6 +21,7 @@ func init() {
 	RegisterProvider(&ProviderCodemao{})
 	RegisterProvider(&ProviderGeeksidebar{})
 	RegisterProvider(&ProviderQwen{})
+	RegisterProvider(&ProviderNoCode{})
 	// RegisterProvider(&ProviderExample{})
 }
 
