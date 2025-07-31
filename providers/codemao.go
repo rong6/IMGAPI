@@ -72,7 +72,7 @@ func (p *ProviderCodemao) Upload(file multipart.File, header *multipart.FileHead
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-		return "", fmt.Errorf("Token请求失败: %w", err)
+		return "", fmt.Errorf("token请求失败: %w", err)
 	}
 	defer resp.Body.Close()
 

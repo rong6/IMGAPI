@@ -48,7 +48,7 @@ func (p *ProviderQwen) GetDisplayName() string {
 // IsEnabled 是否启用
 func (p *ProviderQwen) IsEnabled() bool {
 	providerCfg, exists := config.GetProvider("qwen")
-	return exists && providerCfg.Token != "" && providerCfg.Token != "your_umidtoken_here"
+	return exists && providerCfg.Token != ""
 }
 
 // Upload 上传图片到Qwen图床
