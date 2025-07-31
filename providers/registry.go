@@ -20,6 +20,7 @@ func init() {
 	RegisterProvider(&ProviderZycsimg{})
 	RegisterProvider(&ProviderCodemao{})
 	RegisterProvider(&ProviderGeeksidebar{})
+	RegisterProvider(&ProviderQwen{})
 	// RegisterProvider(&ProviderExample{})
 }
 

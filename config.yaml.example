@@ -62,3 +62,8 @@ providers:
   geeksidebar:
     enabled: true
     token: "Your-Authorization"
+
+  # Qwen图床配置
+  qwen:
+    enabled: true
+    token: "Your-Bx-Umidtoken"

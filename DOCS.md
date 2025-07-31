@@ -41,3 +41,9 @@
 若启用需配置`token`。安装[极客侧边栏](https://www.geeksidebar.com)浏览器扩展，打开开发者工具，按下图获取`Authorization`，注意不带`Bearer`字段。
 
 ![](https://i0.wp.com/res.cloudinary.com/dyxhgk4ga/image/upload/v1753937392/m9fnc9rjn0xyrfcfa9vv.png)
+
+## Qwen图床
+
+若启用需配置`token`。访问[Qwen Chat](https://chat.qwen.ai/)，打开开发者工具，上传一张图片，按下图所示在网络请求中抓取`bx-umidtoken`请求头值。
+
+![](https://i0.wp.com/res.cloudinary.com/dyxhgk4ga/image/upload/v1753942573/gdfpjrcfhe3um6piei0h.png)

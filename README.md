@@ -1,7 +1,7 @@
 <div align="center">
 <h1>IMGAPI - 聚合图床API</h1>
 <img src="https://socialify.git.ci/rong6/IMGAPI/image?description=1&language=1&font=Inter&name=1&owner=1&pattern=Circuit%20Board&theme=Dark" alt="Cover Image" width="650"><br>
-<a href="#快速开始">快速开始</a> | <a href="demo.html">测试示例</a>
+<a href="#快速开始">快速开始</a> | <a href="DOCS.md">配置文档</a>
 </div>
 
 ## 功能特性
@@ -26,6 +26,7 @@
 - **骤雨重山图床 (zycsimg)** - 无需配置
 - **编程猫图床 (codemao)** - 无需配置
 - **极客侧边栏图床 (geeksidebar)** - 需要配置
+- **Qwen图床 (qwen)** - 需要配置
 
 ## 快速开始
 
@@ -262,6 +263,7 @@ imgapi/
        ipfs.go            # IPFS图床
        meituan.go         # 美团图床
        nodeseek.go        # NodeSeek图床
+       qwen.go            # QWen图床
        registry.go        # 提供商注册表
        zycsimg.go         # 骤雨重山图床
 ```
