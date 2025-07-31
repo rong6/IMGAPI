@@ -53,3 +53,12 @@ providers:
   # 骤雨重山图床配置
   zycsimg:
     enabled: true
+
+  # 编程猫图床配置
+  codemao:
+    enabled: true
+  
+  # 极客侧边栏图床配置
+  geeksidebar:
+    enabled: true
+    token: "Your-Authorization"

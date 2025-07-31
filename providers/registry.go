@@ -18,6 +18,8 @@ func init() {
 	RegisterProvider(&ProviderEroLabs{})
 	RegisterProvider(&ProviderDeepSider{})
 	RegisterProvider(&ProviderZycsimg{})
+	RegisterProvider(&ProviderCodemao{})
+	RegisterProvider(&ProviderGeeksidebar{})
 	// RegisterProvider(&ProviderExample{})
 }
 

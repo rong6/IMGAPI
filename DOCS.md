@@ -32,6 +32,12 @@
 
 ## DeepSider
 
-若启用需配置`token`。安装[DeepSider](https://microsoftedge.microsoft.com/addons/detail/minfmdkpoboejckenbchpjbjjkbdebdm)浏览器扩展，打开开发者工具，按如图所示抓取`Authorization`即可。
+若启用需配置`token`。安装[DeepSider](https://microsoftedge.microsoft.com/addons/detail/minfmdkpoboejckenbchpjbjjkbdebdm)浏览器扩展，打开开发者工具，按如图所示抓取`Authorization`即可，注意不带`Bearer`字段。
 
 ![](https://i0.wp.com/res.cloudinary.com/dyxhgk4ga/image/upload/v1753019709/srlttk17euh6p5uzm2wh.png)
+
+## 极客侧边栏图床
+
+若启用需配置`token`。安装[极客侧边栏](https://www.geeksidebar.com)浏览器扩展，打开开发者工具，按下图获取`Authorization`，注意不带`Bearer`字段。
+
+![](https://i0.wp.com/res.cloudinary.com/dyxhgk4ga/image/upload/v1753937392/m9fnc9rjn0xyrfcfa9vv.png)
